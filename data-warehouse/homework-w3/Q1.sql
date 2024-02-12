@@ -1,0 +1,1 @@
+SELECT COUNT(1) FROM `green_taxi.external_green_tripdata`;
