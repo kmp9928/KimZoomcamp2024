@@ -12,8 +12,8 @@ with tripdata as
 select
     -- identifiers
     {{ dbt_utils.generate_surrogate_key(['dispatching_base_num', 'pickup_datetime']) }} as tripid,
-    dispatching_base_num,
-    affiliated_base_number,
+    dispatching_base_num as dispatching_base_num,
+    affiliated_base_number as affiliated_base_number,
     {{ dbt.safe_cast("p_ulocation_id", api.Column.translate_type("integer")) }} as pickup_locationid,
     {{ dbt.safe_cast("d_olocation_id", api.Column.translate_type("integer")) }} as dropoff_locationid,
     
@@ -22,7 +22,7 @@ select
     cast(drop_off_datetime as timestamp) as dropoff_datetime,
     
     -- trip info
-    sr_flag
+    sr_flag as sr_flag
 from tripdata
 where date(pickup_datetime) between '2019-01-01' and '2019-12-31'
 
